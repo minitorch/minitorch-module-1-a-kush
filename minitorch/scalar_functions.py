@@ -92,7 +92,7 @@ class Log(ScalarFunction):
     @staticmethod
     def backward(ctx: Context, d_output: float) -> float:
         (a,) = ctx.saved_values
-        return operators.log_back(a, d_output)
+        return wrap_tuple(operators.log_back(a, d_output))
 
 
 # To implement.
@@ -127,7 +127,7 @@ class Inv(ScalarFunction):
     def backward(ctx: Context, d_output: float) -> float:
         # [done]: Implement for Task 1.4.
         (a,) = ctx.saved_values
-        return operators.inv_back(a, d_output)
+        return wrap_tuple(operators.inv_back(a, d_output))
 
 
 class Neg(ScalarFunction):
@@ -141,7 +141,7 @@ class Neg(ScalarFunction):
     @staticmethod
     def backward(ctx: Context, d_output: float) -> float:
         # [done]: Implement for Task 1.4.
-        return -d_output
+        return wrap_tuple(-d_output)
 
 
 class Sigmoid(ScalarFunction):
@@ -150,12 +150,15 @@ class Sigmoid(ScalarFunction):
     @staticmethod
     def forward(ctx: Context, a: float) -> float:
         # [done]: Implement for Task 1.2.
-        return operators.sigmoid(a)
+        sigmoid = operators.sigmoid(a)
+        ctx.save_for_backward(sigmoid)
+        return sigmoid
 
     @staticmethod
     def backward(ctx: Context, d_output: float) -> float:
         # [done]: Implement for Task 1.4.
-        raise NotImplementedError("Need to implement for Task 1.4")
+        (sigmoid,) = ctx.saved_tensors
+        return wrap_tuple(sigmoid * (1 - sigmoid))
 
 
 class ReLU(ScalarFunction):
@@ -171,7 +174,7 @@ class ReLU(ScalarFunction):
     def backward(ctx: Context, d_output: float) -> float:
         # [done]: Implement for Task 1.4.
         (a,) = ctx.saved_values
-        return operators.relu_back(a, d_output)
+        return wrap_tuple(operators.relu_back(a, d_output))
 
 
 class Exp(ScalarFunction):
@@ -180,12 +183,15 @@ class Exp(ScalarFunction):
     @staticmethod
     def forward(ctx: Context, a: float) -> float:
         # [done]: Implement for Task 1.2.
+        exp = operators.exp(a)
+        ctx.save_for_backward(exp)
         return operators.exp(a)
 
     @staticmethod
     def backward(ctx: Context, d_output: float) -> float:
         # [done]: Implement for Task 1.4.
-        return d_output * d_output
+        (exp,) = ctx.saved_values
+        return wrap_tuple(d_output * exp)
 
 
 class LT(ScalarFunction):

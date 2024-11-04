@@ -126,15 +126,15 @@ class Scalar:
 
     def log(self) -> Scalar:
         # TODO: Implement for Task 1.2.
-        return Log.apply(self, b)
+        return Log.apply(self)
 
     def exp(self) -> Scalar:
         # TODO: Implement for Task 1.2.
-        return Exp.apply(self, b)
+        return Exp.apply(self)
 
     def sigmoid(self) -> Scalar:
         # TODO: Implement for Task 1.2.
-        return Sigmoid.apply(self, b)
+        return Sigmoid.apply(self)
 
     def relu(self) -> Scalar:
         # TODO: Implement for Task 1.2.

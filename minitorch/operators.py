@@ -34,61 +34,61 @@ from typing import Callable, Iterable
 
 # [done]: Implement for Task 0.1.
 def mul(x: float, y: float):
-    return x * y
+    return 1.0 * x * y
 
 def id(x: float):
-    return x
+    return 1.0 * x
 
 def add(x: float, y: float):
-    return x + y
+    return 1.0 * x + y
 
 def neg(x: float):
-    return -x
+    return -1.0 * x
 
 def lt(x: float, y: float):
-    return x < y
+    return float(x < y)
 
 def eq(x: float, y: float):
-    return x == y
+    return float(x == y)
 
 def max(x: float, y: float):
     if x >= y:
-        return x
-    return y
+        return 1.0 * x
+    return 1.0 * y
 
 
 def is_close(x: float, y: float, thresh: float = 1e-5):
-    return abs(x - y) <= thresh
+    return float(abs(x - y) <= thresh)
 
 def sigmoid(x: float):
     if x >= 0:
-        return 1 / (1 + math.exp(-x))
+        return 1.0 / (1 + math.exp(-x))
     else:
-        return math.exp(x) / (1 + math.exp(x))
+        return 1.0 * math.exp(x) / (1 + math.exp(x))
     
 def relu(x: float):
-    return max(0, x)
+    return 1.0 * max(0.0, x)
 
 def log(x: float):
-    return math.log(x)
+    return 1.0 * math.log(x)
 
 def exp(x: float):
-    return math.exp(x)
+    return 1.0 * math.exp(x)
 
 def inv(x: float):
-    return 1 / x
+    return 1.0 / x
 
 def log_back(x: float, k: float):
-    return k * inv(x) 
+    return 1.0 * k * inv(x) 
 
 def inv_back(x: float, k: float):
-    return -k * inv(x) * inv(x)
+    return -1.0 * k * inv(x) * inv(x)
 
 def relu_back(x: float, k: float):
     if x > 0:
-        return k
+        return 1.0 * k
     else:
-        return 0
+        return 0.0
 
 
 
